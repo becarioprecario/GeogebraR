@@ -1,0 +1,12 @@
+Package: GeogebraR
+Encoding: latin1
+Type: Package
+Title: Example using Geogebra and R
+Version: 0.01
+Date: 2014-04-18
+Author: Virgilio Gómez-Rubio, María José Haro-Delicado, Francisco Parreño-Torres
+Maintainer: Virgilio Gomez-Rubio <virgilio.gomez@uclm.es>
+Description: Examples on the use of OpenCPU to link Geogebra and R.
+License: GPL
+LazyData: yes
+Suggests: opencpu (>= 1.2)

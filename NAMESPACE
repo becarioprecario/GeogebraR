@@ -1,0 +1,2 @@
+export("myrnorm", "simpts");
+export("CLT");
