@@ -1,3 +1,4 @@
 export("simpts");
 export("CLT");
 export("qccsample", "charlimits");
+export("abmap");
