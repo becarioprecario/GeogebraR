@@ -18,5 +18,19 @@
 \item{nsims}{Number of simulations.}
 }
 
+\details{
+In this example, the user can choose among three different distributions to
+sample from. In all cases, the simulated points are display, together a
+histogram, the density distribution (in green) and the asymptotic distribution
+of the mean of 'nsims' observations (in red).
+}
+
+\examples{
+require(opencpu)
+opencpu$browse('/library/GeogebraR/www/CLT.html')
+}
+
+
+
 \keyword{interface}
 

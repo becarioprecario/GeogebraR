@@ -31,6 +31,8 @@ require(opencpu)
 opencpu$browse('/library/GeogebraR/www/simpts.html')
 #Central Limit Theorem
 opencpu$browse('/library/GeogebraR/www/CLT.html')
+#Quality Control Charts
+opencpu$browse('/library/GeogebraR/www/qcc.html')
 }
 
 }
