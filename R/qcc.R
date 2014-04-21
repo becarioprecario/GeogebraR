@@ -23,8 +23,3 @@ charlimits<-function(qccpts=NULL)
 		return(list(lowlim=NA, uplim=NA))
 	}
 }
-
-updateqcc<-function()
-{
-
-}

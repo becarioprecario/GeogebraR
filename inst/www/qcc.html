@@ -20,7 +20,7 @@
 </p>
 
 <form>
-<input type="button" value="Sample points" onclick="sample();">
+<input type="button" value="Sample points" onclick="sample();displaypts();">
 </form>
 
 <script type="text/javascript"> 
@@ -32,11 +32,15 @@ function sample(){
          function (output){
 
 	qccpts =output;
+	})
 
+}
+
+function displaypts() {
 	 var applet = document.ggbApplet;
 
                 //Show points in the sample
-                $.each(output, function(i, val){
+                $.each(qccpts, function(i, val){
 
                 var cmd= "A"+(i+1)+"=("+(i+1)+", "+val+")";
                 applet.evalCommand(cmd);
@@ -45,12 +49,7 @@ function sample(){
 		//Listener function for updates
 		ggbApplet.registerObjectUpdateListener("A"+(i+1), "updateqcc");
 
-
                 })
-
-	})
-
-	qcclimits();
 
 }
 
