@@ -12,8 +12,6 @@
  abmap()
 }
 
-\arguments{
-}
 
 \details{
 'abmap' returns a list with the coordinates of the municipalities
