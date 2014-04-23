@@ -1,29 +1,14 @@
 \name{albacete}
-\alias{abmap}
-
-\title{Example on maps}
-
+\docType{data}
+\alias{albacete}
+\title{Boundaries of the municipalities in the province of Albacete (Spain)}
 \description{
- These functions are used in the example included in qcc.html on
-Quality Control Charts.
+ This data set contains the boundaries of the municipalities in the province
+ of Albacete (Castilla-La Mancha, Spain). Albacete is also the city where 
+ useR! 2013 took place.
 }
-
-\usage{
- abmap()
-}
-
-\arguments{
-}
-
-\details{
-'abmap' returns a list with the coordinates of the municipalities
-in the province of Albacete (Castilla-La mancha, Spain).
-}
-
-\examples{
-require(opencpu)
-opencpu$browse('/library/GeogebraR/www/albacete.html')
-}
-
-\keyword{interface}
-
+\usage{albacete}
+\format{A SpatialPolygonsDataFrame with the boundaries and some additional}
+\source{ Instituto Nacional de Estadística (España). \url{http://www.ine.es}}
+\seealso{\link{abmap}}
+\keyword{datasets}
