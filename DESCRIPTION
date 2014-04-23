@@ -1,5 +1,5 @@
 Package: GeogebraR
-Encoding: utf8
+Encoding: UTF-8
 Type: Package
 Title: Example using Geogebra and R
 Version: 0.01

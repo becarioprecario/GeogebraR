@@ -4,7 +4,7 @@ abmap<-function(){
 
 	require(sp)
 
-	data(albacete, package="GeogebraR")
+	data(albacete)#, package="GeogebraR")
 
 	bb<-bbox(albacete)[,1]#Minimum coordinates
 	rescal<-50000#Re-scale factor
