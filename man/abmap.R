@@ -4,8 +4,8 @@
 \title{Example on maps}
 
 \description{
- These functions are used in the example included in qcc.html on
-Quality Control Charts.
+ This function is used to return the coordinates of the polygons from
+ a map in SpatialPolygons or SpatialPolygonsDataFrame formats.
 }
 
 \usage{
