@@ -28,6 +28,13 @@ Geogebra language to English.
   <option value="runif">Uniform (a, b)</option>
 </select>
 <p>
+Breaks: <select name="breaks" id="s2">
+  <option value="Sturges">Sturges</option>
+  <option value="FD">Freedman-Diaconis</option>
+  <option value="Scott">Scott</option>
+</select>
+
+<p>
 Parameter 1: <input type="text" id="p1" name="param1" size="5" value="0"> 
 Parameter 2: <input type="text" id="p2" name="param2" size="5" value="1">
 <p>
@@ -50,6 +57,7 @@ function sample(){
 
 
 	var distr = document.getElementById("s1").value;
+	var breaks = document.getElementById("s2").value;
 	var params = [document.getElementById("p1").value, document.getElementById("p2").value] ;
 	var nsims = document.getElementById("n1").value;
 
@@ -66,6 +74,7 @@ function sample(){
 
 	var req = ocpu.rpc("CLT", {
 		distr : distr,
+		breaks : breaks,
 		params : params,
 		nsims : nsims
 	}, function (output){

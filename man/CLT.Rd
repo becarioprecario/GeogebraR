@@ -9,11 +9,12 @@
 }
 
 \usage{
- CLT(distr, params, nsims)
+ CLT(distr, breaks, params, nsims)
 }
 
 \arguments{
 \item{distr}{Distribution to sample from.}
+\item{breaks}{Sames as the 'breaks' parameter in 'hist()'.}
 \item{params}{Vector of two elements with the parameters to use with 'distr'.}
 \item{nsims}{Number of simulations.}
 }

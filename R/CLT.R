@@ -1,6 +1,6 @@
 #Take distribution and paramateres to sample from
 #NOTE: n is not used at the moment
-CLT<-function(distr, params, nsims){
+CLT<-function(distr, breaks, params, nsims){
 
 	params<-as.numeric(params)
 	nsims<-as.numeric(nsims)
@@ -11,7 +11,7 @@ CLT<-function(distr, params, nsims){
 		runif = runif(nsims, min=params[1], max=params[2])
 	)	
 
-	xxhist<-hist(xx, freq=FALSE, plot=FALSE)
+	xxhist<-hist(xx, breaks=breaks, freq=FALSE, plot=FALSE)
 
 
 	#Compute density distribution of points
