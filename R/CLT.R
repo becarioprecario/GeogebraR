@@ -25,7 +25,7 @@ CLT<-function(distr, breaks, params, nsims){
 	#Compute theoretical mean and st. dev. from params
 	tparams<-switch(distr,
 		rnorm = c(params[1], params[2]/sqrt(nsims)),
-		rexp = c(1/params[1], sqrt( (1/(params[1]^2))/nsims) ),
+		rexp = c(params[1], params[2]/sqrt(nsims) ),
 		runif = c(sum(params)/2, ((diff(params)^2)/12)/nsims)
 	)
 
