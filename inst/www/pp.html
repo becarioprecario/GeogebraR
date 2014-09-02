@@ -97,11 +97,11 @@ function sample(){
 		var pol = output.cl[i]
 
 		cmd = "cline"+(i+1) +" = PolyLine [ ";
-		cmd = cmd + "("+pol.x[0]+", " + +pol.x[0]+")";
+		cmd = cmd + "("+pol.x[0]+", " +pol.y[0]+")";
 
 		for(j=1;j<pol.x.length;j++)
 		{
-		cmd = cmd + ", ("+pol.x[j]+", " + +pol.y[j]+") ";
+		cmd = cmd + ", ("+pol.x[j]+", " +pol.y[j]+") ";
 		}
 		cmd = cmd +" ]";
 		applet.evalCommand(cmd);
