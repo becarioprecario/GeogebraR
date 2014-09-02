@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Geogebra - GeoGebra Dynamic Worksheet</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="GeoGebra" />
+<style type="text/css"><!--body { font-family:Arial,Helvetica,sans-serif; margin-left:40px }--></style>
+
+<!-- GOOGLE ANALYTICS, Remove if you are modifying this html page -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2002081-3', 'ocpu.io');
+  ga('send', 'pageview');
+
+</script>
+
+<!-- OCPU lib and depends -->
+<script type="text/javascript" src="opencpu/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="opencpu/resize.js"></script>
+<script type="text/javascript" src="opencpu/opencpu-0.4.js"></script>
+
+</head>
+<body>
+<table border="0" width="798">
+<tr><td>
+
+<h2>Geogebra and R: Curve fitting</h2>
+<p>
+</p>
+
+<b>IMPORTANT:</b>For this example to run you will need to set the
+Geogebra language to English.
+<p>
+
+Select dataset:
+
+<select name="dataset" id="dataset">
+  <option value="cars">Cars (speed of cars and the distances taken to stop)</option>
+  <option value="BOD">BOD (biochemical oxygen demand versus time in an evaluation of water
+     quality)</option>
+  <option value="women">Women (average heights and weights for American women aged 30-39)</option>
+</select>
+
+
+<form>
+<input type="button" value="Get data" onclick="getdata();">
+<input type="button" value="Fit curves" onclick="fitcurves();">
+</form>
+
+<script type="text/javascript"> 
+var pts;
+
+var npts = 0;//Set number of points to zero on startup
+
+var dataset;
+
+var fitcvs;
+
+
+function getdata(){
+
+	dataset = document.getElementById("dataset").value;
+
+	//Remove previous dataset
+
+	if(npts>0){
+		for(i=0;i<npts;i++){document.ggbApplet.deleteObject("A"+(i+1));}
+	}
+
+        var req = ocpu.rpc("getdata", {
+		dataset : dataset
+	}, function (output){
+
+	pts = output;
+	npts = output.length;
+
+	//Add points
+        for(var i=0;i<output.length;i++)
+        {
+                var cmd= "A"+(i+1)+"=("+output[i]+")";
+//                alert(cmd);
+                document.ggbApplet.evalCommand(cmd);
+
+		//Hide label
+                document.ggbApplet.setLabelVisible("A"+(i+1), false);
+        }
+});
+
+}
+
+//Display curve
+//cpts: points
+//cname: Name of the Geogebra object
+function displaycurve (cpts, cname){
+
+	var applet = document.ggbApplet;
+
+                cmd = cname +" = PolyLine [ ";
+                cmd = cmd + "("+cpts.x[0]+", " + cpts.y[0]+")";
+
+                for(j=1;j<cpts.x.length;j++)
+                {
+                cmd = cmd + ", ("+cpts.x[j]+", " + cpts.y[j]+") ";
+                }
+                cmd = cmd +" ]";
+
+		//alert(cmd);
+                applet.evalCommand(cmd);
+
+}
+
+
+function fitcurves() {
+
+	var applet = document.ggbApplet;
+
+	var req = ocpu.rpc("fitcurves", {
+		xx : pts
+	}, function (output) {
+
+	fitcvs = output;
+
+	//alert("Fit curves");
+
+	displaycurve(output[0], "lowess");
+	applet.setColor("lowess", 255, 0, 0);
+
+	displaycurve(output[1], "spline");
+	applet.setColor("spline", 0, 255, 0);
+
+	displaycurve(output[2], "poly5th");
+	applet.setColor("poly5th", 0, 0, 255);
+
+	});
+
+
+}
+
+
+</script>
+
+
+
+
+<applet name="ggbApplet" code="geogebra.GeoGebraApplet" archive="geogebra.jar"
+	codebase="http://www.geogebra.org/webstart/4.0/"
+	width="1024" height="768">
+	<param name="ggbBase64" value="UEsDBBQACAgIAEiWkkQAAAAAAAAAAAAAAAAWAAAAZ2VvZ2VicmFfamF2YXNjcmlwdC5qc0srzUsuyczPU0hPT/LP88zLLNHQVKiuBQBQSwcI1je9uRkAAAAXAAAAUEsDBBQACAgIAEiWkkQAAAAAAAAAAAAAAAAMAAAAZ2VvZ2VicmEueG1svVbbbtw2EH12vmKgZ6+XlKiLDa2DJkACA25S1GlQ9I2SaC1rSRREancd5K/6Cf2xDklpV47bIkGKArapIQ/nzAznkM5fHtoGdmLQUnWbgF6QAERXqkp29SYYzf0qC15ev8hroWpRDBzu1dByswmYRcpqEyQlYSJN0xVN43LFMhGteEbCFU8rekkLIooiCwAOWl516h1vhe55Ke7KrWj5rSq5ccRbY/qr9Xq/31/MVBdqqNd1XVwcdBUAhtnpTTB9XKG7J5v2kYOHhND1rz/eevcr2WnDu1IEYFMY5fWLs3wvu0rtYS8rs90EGcE0tkLWW8wpscbagnosSC9KI3dC49aF6XI2bR84GO/s+pn/guaYTgCV3MlKDJuAXIRxHIAapOjMtEwnmvXsIN9Jsfee7JcjYQEYpZqCWyfw+TOEJCRwbgfqhxCHJPFLxM+RyA+hH5gfYo9hfjvzUOYxzGNYFMBOalk0YhPc80Zj0WR3P+CBHW1tHhvh4pkmTgnTc8xJy08IjmwVfZVxnpBz+4ulPWdzeRdJ0gWrGcZvJJ0p44x9PWX4PZTRTIkVe04Zxv+QZfIvxfUxfE2aNF5UFqncj/t9xhiF38Do7e8jTNj/kmK+npWST+IAvbXY6SSNaLWVS3QJ8aXtegoxSiNJscljoJc4pCGgGIDGwGI0aQaJHVOIUlxgEEEGFkcjcNqIM/zDUucsgRid2dkUJQkUiRjEEVAnKQYoJHCyRImGESLiGGLcZOlpaF1ECbAErSgDhjFaRaYUgRFuRBvpQ4goRHYzTSFMILH+KLNKTzIbOroMISGQUOsQRY2C9mJGfAaRzSaZyiW7fjRPSlS21fxpVH88C0TjdXS65/z19OQaPMsbXogGX4Y7e5IAO95YRTiie9UZmA8x9HP1wPutLPWdMAZ3afid7/gtN+LwBtF65nbYUnX6p0GZ16oZ204DlKohx5hVQxff4TFqNKLFAlsuxIuFZPGd/i2vwhUYtUB+NegZzqvqxiJOVwNW8n3XPL4aBH/olXyaRr52j0wuxrKRleTdR2xWy2LrAvOb426r+c1hLJkDUUN196ixg+HwmxgU3jE0tq/so7cib+mSW4nFxC0tLedG7I7V5gdxTKQerEinJKxxo1+p5jTlUnnNezMO7uXHe26wAf7Q1Y1wx+1Eis9q+VCow50/58j7+vDYozUFUNSuhIAydw9fPY2FHx3GRnZEEYchDkHmxpHVcZ1ehg7hxsKPDoWd6EObMqVzmpTMNFK7y4kETyTg2tg+0mMnze1sGFk+nDK1+HdjW4hjMzx1Sf8jl/n6i2bJH8TQiWbqTTzJUY3aS23RtpUoZYumX5gKwu1h/YIB+NlK1IOY427c/1S+XG6VLNvu2bRz9WZQ7U23+4Cd8EUA+XqOMtflIHvbcFDgff4gTj1VSc3xOaiW+6yYMPXSXvtYHmNL83b6hw/lNpqtwiP/KIdaNlLB2z//aMWn1c9jIRU6xKsDy2rpl36c7iYf138BUEsHCLabQfZoBAAA0QoAAFBLAQIUABQACAgIAEiWkkTWN725GQAAABcAAAAWAAAAAAAAAAAAAAAAAAAAAABnZW9nZWJyYV9qYXZhc2NyaXB0LmpzUEsBAhQAFAAICAgASJaSRLabQfZoBAAA0QoAAAwAAAAAAAAAAAAAAAAAXQAAAGdlb2dlYnJhLnhtbFBLBQYAAAAAAgACAH4AAAD/BAAAAAA=" />
+	<param name="image" value="http://www.geogebra.org/webstart/loading.gif" />
+	<param name="boxborder" value="false" />
+	<param name="centerimage" value="true" />
+	<param name="java_arguments" value="-Xmx512m -Djnlp.packEnabled=true" />
+	<param name="cache_archive" value="geogebra.jar, geogebra_main.jar, geogebra_gui.jar, geogebra_cas.jar, geogebra_algos.jar, geogebra_export.jar, geogebra_javascript.jar, jlatexmath.jar, jlm_greek.jar, jlm_cyrillic.jar, geogebra_properties.jar" />
+	<param name="cache_version" value="4.0.34.0, 4.0.34.0, 4.0.34.0, 4.0.34.0, 4.0.34.0, 4.0.34.0, 4.0.34.0, 4.0.34.0, 4.0.34.0, 4.0.34.0, 4.0.34.0" />
+	<param name="showResetIcon" value="true" />
+	<param name="enableRightClick" value="true" />
+	<param name="errorDialogsActive" value="true" />
+	<param name="enableLabelDrags" value="true" />
+	<param name="showMenuBar" value="true" />
+	<param name="showToolBar" value="true" />
+	<param name="showToolBarHelp" value="true" />
+	<param name="showAlgebraInput" value="true" />
+	<param name="useBrowserForJS" value="true" />
+	<param name="allowRescaling" value="true" />
+This is a Java Applet created using GeoGebra from www.geogebra.org - it looks like you don't have Java installed, please go to www.java.com
+</applet>
+<p>
+</p>
+<p><span style="font-size:small">Virgilio G&#243;mez-Rubio, Created with <a href="http://www.geogebra.org/" target="_blank" >GeoGebra</a></span></p>
+</td></tr>
+</table><script type="text/javascript">
+var ggbApplet = document.ggbApplet;
+function ggbOnInit() {}
+</script>
+</body>
+</html>
