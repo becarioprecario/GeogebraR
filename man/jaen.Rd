@@ -1,7 +1,7 @@
 \name{jaen}
 \docType{data}
 \alias{jaen}
-\title{Boundaries of the municipalities in the province of Jaen (Spain)}
+\title{Boundaries of the municipalities in the province of Jaén (Spain)}
 \description{
  This data set contains the boundaries of the municipalities in the province
  of Jaén (Andalucía, Spain). 
