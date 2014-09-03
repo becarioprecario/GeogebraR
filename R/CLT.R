@@ -26,7 +26,7 @@ CLT<-function(distr, breaks, params, nsims){
 	tparams<-switch(distr,
 		rnorm = c(params[1], params[2]/sqrt(nsims)),
 		rexp = c(params[1], params[1]/sqrt(nsims) ),
-		runif = c(sum(params)/2, ((diff(params)^2)/12)/nsims)
+		runif = c(sum(params)/2, sqrt( ((diff(params)^2)/12)/nsims ) )
 	)
 
 	#Points to evaluate the Normal distribution (of the average)
