@@ -16,7 +16,7 @@ plotmap<-function(map="albacete"){
 
 	polys<-lapply(xxmap@polygons, function(X){
 		xx<-X@Polygons[[1]]@coords/rescal#Coords. are re-scaled
-		xx<-xx-matrix(bb/rescal, nrow=nrow(xx), ncol=2, byrow=TRUE)
+		xx<-xx-matrix(bb, nrow=nrow(xx), ncol=2, byrow=TRUE)
 		return(xx)
 	})
 
