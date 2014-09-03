@@ -7,7 +7,7 @@ samplepp<-function(ncases=10, ncontrols=30)
 
 	#Cases
 	#cc<-data.frame(x=runif(ncases), y=runif(ncases))
-	cc<-data.frame(x=dnorm(ncases, .5, .1), y =dnorm(ncases, .5, .1))
+	cc<-data.frame(x=rnorm(ncases, .5, .1), y=rnorm(ncases, .5, .1))
 
 	#Controls
 	cc<-rbind(cc, data.frame(x=runif(ncontrols), y=runif(ncontrols)))
