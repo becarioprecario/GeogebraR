@@ -68,6 +68,9 @@ var fitcvs;
 
 function getdata(){
 
+        var applet = document.ggbApplet;
+
+
 	dataset = document.getElementById("dataset").value;
 
 	//Remove previous dataset
@@ -75,6 +78,11 @@ function getdata(){
 	if(npts>0){
 		for(i=0;i<npts;i++){document.ggbApplet.deleteObject("A"+(i+1));}
 	}
+
+	//Remove fitted curves
+	if(applet.exists("lowess")){applet.objectDelete("lowess");}
+	if(applet.exists("spline")){applet.objectDelete("spline");}
+	if(applet.exists("poly5th")){applet.objectDelete("poly5th");}
 
         var req = ocpu.rpc("getdata", {
 		dataset : dataset
