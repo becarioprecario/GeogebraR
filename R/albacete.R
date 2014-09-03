@@ -8,8 +8,10 @@ plotmap<-function(map="albacete"){
 
 	if(map=="albacete"){xxmap<-albacete}
 	if(map=="granada"){xxmap<-granada}
+	if(map=="jaen"){xxmap<-jaen}
 
-	bb<-bbox(xxmap)[,1]#Minimum coordinates
+	#bb<-bbox(xxmap)[,1]#Minimum coordinates
+	bb<-c(10.20520, 84.17414)#Offset para colocar Albacete en el origen
 	rescal<-50000#Re-scale factor
 
 	polys<-lapply(xxmap@polygons, function(X){

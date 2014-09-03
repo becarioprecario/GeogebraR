@@ -9,5 +9,5 @@
 \usage{granada}
 \format{A SpatialPolygonsDataFrame with the boundaries and some additional}
 \source{ Instituto Nacional de Estadística (España). \url{http://www.ine.es}}
-\seealso{abmap()}
+\seealso{plotmap()}
 \keyword{datasets}
