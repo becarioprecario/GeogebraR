@@ -1,5 +1,5 @@
 export("simpts");
 export("CLT");
 export("qccsample", "charlimits");
-export("abmap");
+export("plotmap");
 export("samplepp");
