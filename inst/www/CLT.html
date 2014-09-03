@@ -75,6 +75,22 @@ function sample(){
 	var params = [document.getElementById("p1").value, document.getElementById("p2").value] ;
 	var nsims = document.getElementById("n1").value;
 
+
+	//Check parameters
+
+	switch(distr) {
+		case "rnorm":
+
+			if(params[1]<=0){alert("Standard deviation must be positive.");return();}
+			break;
+		case "rexp":
+			break;
+		case "runif":
+			break;
+
+	}
+
+
 	if(npts>0)
 	{
 		for(i=1;i<=npts;i++)
