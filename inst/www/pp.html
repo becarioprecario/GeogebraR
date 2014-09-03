@@ -60,16 +60,15 @@ var goutput;
 function sample(){
          var applet = document.ggbApplet;
 
-	ncases = Number(document.getElementById("n1").value);
-	ncontrols = Number(document.getElementById("n0").value);
 	
 
 
         var req = ocpu.rpc("samplepp", {
-		ncases : ncases,
-		ncontrols : ncontrols
+		ncases : Number(document.getElementById("n1").value),
+		ncontrols : Number(document.getElementById("n0").value)
 	},
          function (output){
+
 	
 	var idx;
 
@@ -97,6 +96,9 @@ function sample(){
 		}
 	}
 
+
+	ncases = Number(document.getElementById("n1").value);
+	ncontrols = Number(document.getElementById("n0").value);
 
 	//Display cases and controls
 	var cc=output.cc;
