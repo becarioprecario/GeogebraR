@@ -35,8 +35,14 @@
 Geogebra language to English.
 <p>
 
+<select name="map" id="map">
+  <option value="albacete">Albacete</option>
+  <option value="granada">Granada</option>
+</select>
+<p>
+
 <form>
-<input type="button" value="Load map" onclick="map();">
+<input type="button" value="Load map" onclick="showmap();">
 </form>
 
 <form>
@@ -46,9 +52,15 @@ Geogebra language to English.
 
 <script type="text/javascript">
 
-function map(){
+function showmap(){
 
-	var req = ocpu.rpc("abmap", {},
+	map = document.getElementById("map").value;
+	
+
+	var req = ocpu.rpc("plotmap", {
+		map : map
+	},
+		
          function (output){
 
 

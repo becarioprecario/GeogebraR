@@ -1,5 +1,5 @@
-\name{abmap}
-\alias{abmap}
+\name{plotmap}
+\alias{plotmap}
 
 \title{Example on maps}
 
@@ -9,13 +9,17 @@
 }
 
 \usage{
- abmap()
+ plotmap(map="albacete")
+}
+
+\arguments{
+\item{map}{Map to plot. Either "albacete" or "granada".}
 }
 
 
 \details{
-'abmap' returns a list with the coordinates of the municipalities
-in the province of Albacete (Castilla-La mancha, Spain).
+'plotmap' returns a list with the coordinates of the municipalities
+in the province of Albacete (Castilla-La mancha, Spain) or Granada (Andalucía, Spain).
 }
 
 \examples{

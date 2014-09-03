@@ -1,15 +1,18 @@
 #Return boundaries of the municipalities in Albacete
 
-abmap<-function(){
+plotmap<-function(map="albacete"){
 
 	require(sp)
 
-	data(albacete, envir=environment())#, package="GeogebraR")
+	data(map, envir=environment())#, package="GeogebraR")
 
-	bb<-bbox(albacete)[,1]#Minimum coordinates
+	if(map=="albacete"){xxmap<-albacete}
+	if(map=="granada"){xxmap<-granada}
+
+	bb<-bbox(xxmap)[,1]#Minimum coordinates
 	rescal<-50000#Re-scale factor
 
-	polys<-lapply(albacete@polygons, function(X){
+	polys<-lapply(xxmap@polygons, function(X){
 		xx<-X@Polygons[[1]]@coords/rescal#Coords. are re-scaled
 		xx<-xx-matrix(bb/rescal, nrow=nrow(xx), ncol=2, byrow=TRUE)
 		return(xx)
