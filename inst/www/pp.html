@@ -42,7 +42,7 @@ Number of cases:
 </select>
 <p>
 Number of controls: 
-<select name="ncases" id="n0">
+<select name="ncontrols" id="n0">
   <option value="50">50</option>
   <option value="100">100</option>
   <option value="150">150</option>
@@ -51,21 +51,26 @@ Number of controls:
 </form>
 
 <script type="text/javascript"> 
-var ncases=20;
-var ncontrols=60;
-var idx=0;
+var ncases;
+var ncontrols;
 var goutput;
 
 
 function sample(){
          var applet = document.ggbApplet;
 
+	ncases = Number(document.getElementById("n1").value);
+	ncontrols = Number(document.getElementById("n0").value);
+	
+
 
         var req = ocpu.rpc("samplepp", {
-		ncases : Number(document.getElementById("n1").value),
-		ncontrols : Number(document.getElementById("n0").value)
-},
+		ncases : ncases,
+		ncontrols : ncontrols
+	},
          function (output){
+	
+	var idx;
 
 	goutput = output;
 
