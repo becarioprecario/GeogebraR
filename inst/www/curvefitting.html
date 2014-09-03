@@ -76,13 +76,13 @@ function getdata(){
 	//Remove previous dataset
 
 	if(npts>0){
-		for(i=0;i<npts;i++){document.ggbApplet.deleteObject("A"+(i+1));}
+		for(i=0;i<npts;i++){applet.deleteObject("A"+(i+1));}
 	}
 
 	//Remove fitted curves
-	if(applet.exists("lowess")){applet.objectDelete("lowess");}
-	if(applet.exists("spline")){applet.objectDelete("spline");}
-	if(applet.exists("poly5th")){applet.objectDelete("poly5th");}
+	if(applet.exists("lowess")){applet.deleteObject("lowess");}
+	if(applet.exists("spline")){applet.deleteObject("spline");}
+	if(applet.exists("poly5th")){applet.deleteObject("poly5th");}
 
         var req = ocpu.rpc("getdata", {
 		dataset : dataset
