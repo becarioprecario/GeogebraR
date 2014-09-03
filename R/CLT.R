@@ -30,7 +30,7 @@ CLT<-function(distr, breaks, params, nsims){
 	)
 
 	#Points to evaluate the Normal distribution (of the average)
-	xxmean<-seq(tparams[1]-tparams[2]*3, tparams[1]+tparams[2]*3, length.out=100) 
+	xxmean<-seq(tparams[1]-tparams[2]*4, tparams[1]+tparams[2]*4, length.out=100) 
 	yymean<-dnorm(xxmean, mean=tparams[1], sd=tparams[2])
 
 	res<-list(xx=xx, breaks=xxhist$breaks, density=xxhist$density,
