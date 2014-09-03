@@ -51,8 +51,9 @@ Number of controls:
 </form>
 
 <script type="text/javascript"> 
-var ncases;
-var ncontrols;
+var ncases=0;
+var ncontrols=0;
+var nclines=0;
 var goutput;
 
 
@@ -73,6 +74,29 @@ function sample(){
 	var idx;
 
 	goutput = output;
+
+	//Remove points
+
+	if(ncases>0){
+		for(var i=0;i<ncases;i++){
+			applet.deleteObject("Case"+(i+1));
+		}
+	}
+
+	if(ncontrols>0){
+		for(var i=0;i<ncontrols;i++){
+			applet.deleteObject("Control"+(i+1));
+		}
+	}
+
+
+	//Remove lines
+	if(nclines>0){
+		for(var i=0;i<nclines;i++){
+			applet.deleteObject("cline"+(i+1));
+		}
+	}
+
 
 	//Display cases and controls
 	var cc=output.cc;
@@ -97,6 +121,7 @@ function sample(){
 	
 
 	//Display contourlines
+	nclines=output.ncl;
 	for(i=0;i<output.ncl;i++)
 	{
 		var pol = output.cl[i]
