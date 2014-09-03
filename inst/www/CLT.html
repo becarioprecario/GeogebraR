@@ -67,6 +67,8 @@ var npts=0;//Number of points in the previous sample
 
 function sample(){
 
+	var applet = document.ggbApplet;
+
 
 	var distr = document.getElementById("s1").value;
 	var breaks = document.getElementById("s2").value;
@@ -79,6 +81,10 @@ function sample(){
 		{
 			document.ggbApplet.deleteObject("A"+i);
 		}
+
+		if(applet.exists("hist")){applet.deleteObject("hist");}
+		if(applet.exists("dens")){applet.deleteObject("dens");}
+		if(applet.exists("densmean")){applet.deleteObject("densmean");}
 
 	}
 
