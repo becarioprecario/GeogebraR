@@ -100,6 +100,9 @@ function getdata(){
 
 		//Hide label
                 document.ggbApplet.setLabelVisible("A"+(i+1), false);
+
+                //Listener function for updates
+                ggbApplet.registerObjectUpdateListener("A"+(i+1), "updatecurves");
         }
 });
 
@@ -152,6 +155,27 @@ function fitcurves() {
 
 
 }
+
+
+
+function updatecurves(obj)
+{
+
+
+        //Update 20% of the time as a way to make less calls to R
+        if(Math.random()<.20)
+        {
+        var idx=Number(obj.substr(1,obj.length-1));
+
+        pts[idx-1][0] = document.ggbApplet.getXcoord(obj);
+        pts[idx-1][1] = document.ggbApplet.getYcoord(obj);
+
+        fitcurves();
+        }
+}
+
+
+
 
 
 </script>
