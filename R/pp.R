@@ -6,7 +6,8 @@ samplepp<-function(ncases=10, ncontrols=30)
 	bdy<-as.points(list(x=c(0,1,1,0), y=c(0,0,1,1)))
 
 	#Cases
-	cc<-data.frame(x=runif(ncases), y=runif(ncases))
+	cc<-data.frame(x=runif(ncases)*runif(ncases), 
+		y=runif(ncases)*runif(ncases))
 	#cc<-data.frame(x=rnorm(ncases, .5, .1), y=rnorm(ncases, .5, .1))
 
 	#Controls
