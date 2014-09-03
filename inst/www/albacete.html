@@ -54,19 +54,27 @@ Geogebra language to English.
 
 function showmap(){
 
-	map = document.getElementById("map").value;
+	mymap = document.getElementById("map").value;
 	
 
 	var req = ocpu.rpc("plotmap", {
-		map : map
+		map : mymap
 	},
 		
          function (output){
 
 	map = document.getElementById("map").value;
 
-	if(map="albacete"){var polyname="AB";}
-	if(map="granada"){var polyname="GR";}
+	switch(map) {
+		case "albacete":
+			var polyname="AB";
+			break;
+
+		case "granada":
+			var polyname="GR";
+			break;
+
+	}
 
 
 	//for(muni=0;muni<2;muni++)
