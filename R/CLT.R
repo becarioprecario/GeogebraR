@@ -5,6 +5,8 @@ CLT<-function(distr, breaks, params, nsims){
 	params<-as.numeric(params)
 	nsims<-as.numeric(nsims)
 
+
+	#Sample points
 	xx<-switch(distr,
 		rnorm = rnorm(nsims, mean=params[1], sd=params[2]),
 		rexp = rexp(nsims, rate=1/params[1]),
@@ -20,7 +22,7 @@ CLT<-function(distr, breaks, params, nsims){
 		rnorm = dnorm(xxdens<-seq(params[1]-params[2]*3, params[1]+params[2]*3, length.out=100), mean=params[1], sd=params[2]),
 		rexp = dexp(xxdens<-seq(0, params[1]+6*params[1], length.out=100), rate=1/params[1]),
 		runif = dunif(xxdens<-seq(params[1], params[2], length.out=100), min=params[1], max=params[2]),
-		rweibull = dweibull(xxdens<-seq(0, params[2]*gamma(1+1/params[1])+6*(params[2]*(gamma(1+2/params[1])-gamma(1+1/params[1])))), shape=params[1], scale=params[2])
+		rweibull = dweibull(xxdens<-seq(0, params[2]*gamma(1+1/params[1])+6*(params[2]*(gamma(1+2/params[1])-gamma(1+1/params[1]))), length.out=100), shape=params[1], scale=params[2])
 	)
 
 
