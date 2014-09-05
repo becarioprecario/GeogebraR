@@ -38,6 +38,7 @@ Geogebra language to English.
   <option value="rnorm">Gaussian (mean, s.d.)</option>
   <option value="rexp">Exponential (mean)</option>
   <option value="runif">Uniform (a, b)</option>
+  <option value="rweibull">Weibull (shape, scale)</option>
 </select>
 <p>
 Breaks: <select name="breaks" id="s2">
@@ -89,6 +90,10 @@ function sample(){
 
 		case "runif":
 			if(params[0] >= params[1]){alert("Minimum value must be lower than maximum value.");return;}
+			break;
+
+		case "rweibull":
+			if(params[0] <0 || params[1]<0){alert("Both parameters must be equal or higher than zero.");return;}
 			break;
 
 	}
