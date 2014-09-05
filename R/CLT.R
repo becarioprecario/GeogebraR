@@ -8,7 +8,8 @@ CLT<-function(distr, breaks, params, nsims){
 	xx<-switch(distr,
 		rnorm = rnorm(nsims, mean=params[1], sd=params[2]),
 		rexp = rexp(nsims, rate=1/params[1]),
-		runif = runif(nsims, min=params[1], max=params[2])
+		runif = runif(nsims, min=params[1], max=params[2]),
+		rweibull = rweibull(nsims, shape=params[1], scale=params[2])
 	)	
 
 	xxhist<-hist(xx, breaks=breaks, freq=FALSE, plot=FALSE)
