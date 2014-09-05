@@ -31,7 +31,7 @@ CLT<-function(distr, breaks, params, nsims){
 		rnorm = c(params[1], params[2]/sqrt(nsims)),
 		rexp = c(params[1], params[1]/sqrt(nsims) ),
 		runif = c(sum(params)/2, sqrt( ((diff(params)^2)/12)/nsims ) ),
-		rweibull = c(params[2]*gamma(1+1/params[1]), params[2]*(gamma(1+2/params[1])-gamma(1+1/params[1]))/sqrt(nsims) ) 
+		rweibull = c(params[2]*gamma(1+1/params[1]), params[2]*abs(gamma(1+2/params[1])-gamma(1+1/params[1]))/sqrt(nsims) ) 
 	)
 
 	#Points to evaluate the Normal distribution (of the average)
