@@ -30,14 +30,6 @@
 <div id="applet_container1"></div>
 
 
-<script type="text/javascript"> 
-var applet1 = new GGBApplet({material_id: "1", width:500, height:500}, true);
-window.onload = function() {
-        applet1.inject('applet_container1', 'preferHTML5');
-    }
-</script> 
-
-
 
 
 <form>
@@ -46,6 +38,15 @@ window.onload = function() {
 <form>
 <input type="button" value="Create polygon" onclick="createpoly();">
 </form>
+
+<script type="text/javascript"> 
+var applet1 = new GGBApplet({material_id: "1", width:500, height:500}, true);
+window.onload = function() {
+        applet1.inject('applet_container1', 'preferHTML5');
+    }
+</script> 
+
+
 
 
 <script type="text/javascript"> 
