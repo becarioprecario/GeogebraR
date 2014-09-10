@@ -35,16 +35,6 @@
 </p>
 
 
-<div id="applet_container1"></div>
-
-
-<script type="text/javascript"> 
-var applet1 = new GGBApplet({material_id: "122728", width:500, height:500}, true);
-window.onload = function() {
-        applet1.inject('applet_container1', 'preferHTML5');
-    }
-</script>
-
 
 
 <form>
@@ -52,6 +42,18 @@ window.onload = function() {
 <input type="button" value="Display points" onclick="displaypts();">
 <input type="button" value="Recompute Control Chart" onclick="qcclimits();">
 </form>
+
+
+<div id="applet_container1"></div>
+
+
+<script type="text/javascript"> 
+var applet1 = new GGBApplet({material_id: "51258", width:500, height:500}, true);
+window.onload = function() {
+        applet1.inject('applet_container1', 'preferHTML5');
+    }
+</script>
+
 
 <script type="text/javascript"> 
 var qccpts;
