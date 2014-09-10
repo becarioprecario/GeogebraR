@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Geogebra - GeoGebra Dynamic Worksheet</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="GeoGebra" />
+<style type="text/css"><!--body { font-family:Arial,Helvetica,sans-serif; margin-left:40px }--></style>
+ <script type="text/javascript" src="http://www.geogebratube.org/scripts/deployggb.js"></script>
+
+
+<!-- GOOGLE ANALYTICS, Remove if you are modifying this html page -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2002081-3', 'ocpu.io');
+  ga('send', 'pageview');
+
+</script>
+
+<!-- OCPU lib and depends -->
+<script type="text/javascript" src="opencpu/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="opencpu/resize.js"></script>
+<script type="text/javascript" src="opencpu/opencpu-0.4.js"></script>
+
+</head>
+<body>
+<table border="0" width="798">
+<tr><td>
+
+<h2>Geogebra and R: Curve fitting</h2>
+<p>
+</p>
+
+<b>IMPORTANT:</b>For this example to run you will need to set the
+Geogebra language to English.
+<p>
+
+Select dataset:
+
+<select name="dataset" id="dataset">
+  <option value="cars">Cars (speed of cars and the distances taken to stop)</option>
+  <option value="BOD">BOD (biochemical oxygen demand versus time in an evaluation of water
+     quality)</option>
+  <option value="women">Women (average heights and weights for American women aged 30-39)</option>
+</select>
+
+
+<form>
+<input type="button" value="Get data" onclick="getdata();">
+<input type="button" value="Fit curves" onclick="fitcurves();">
+</form>
+
+Fitted curves: 
+<font color="#FF0000">Lowess</font>,
+<font color="#00FF00">Smooth Spline</font>,
+<font color="#0000FF">5th Degree Polynomial</font>
+
+<script type="text/javascript"> 
+var pts;
+
+var npts = 0;//Set number of points to zero on startup
+
+var dataset;
+
+var fitcvs;
+
+
+function getdata(){
+
+        var applet = document.ggbApplet;
+
+
+	dataset = document.getElementById("dataset").value;
+
+	//Remove previous dataset
+
+	if(npts>0){
+		for(i=0;i<npts;i++){applet.deleteObject("A"+(i+1));}
+	}
+
+	//Remove fitted curves
+	if(applet.exists("lowess")){applet.deleteObject("lowess");}
+	if(applet.exists("spline")){applet.deleteObject("spline");}
+	if(applet.exists("poly5th")){applet.deleteObject("poly5th");}
+
+        var req = ocpu.rpc("getdata", {
+		dataset : dataset
+	}, function (output){
+
+	pts = output;
+	npts = output.length;
+
+	//Add points
+        for(var i=0;i<output.length;i++)
+        {
+                var cmd= "A"+(i+1)+"=("+output[i]+")";
+//                alert(cmd);
+                document.ggbApplet.evalCommand(cmd);
+
+		//Hide label
+                document.ggbApplet.setLabelVisible("A"+(i+1), false);
+
+                //Listener function for updates
+                ggbApplet.registerObjectUpdateListener("A"+(i+1), "updatecurves");
+        }
+});
+
+}
+
+//Display curve
+//cpts: points
+//cname: Name of the Geogebra object
+function displaycurve (cpts, cname){
+
+	var applet = document.ggbApplet;
+
+                cmd = cname +" = PolyLine [ ";
+                cmd = cmd + "("+cpts.x[0]+", " + cpts.y[0]+")";
+
+                for(j=1;j<cpts.x.length;j++)
+                {
+                cmd = cmd + ", ("+cpts.x[j]+", " + cpts.y[j]+") ";
+                }
+                cmd = cmd +" ]";
+
+		//alert(cmd);
+                applet.evalCommand(cmd);
+
+}
+
+
+function fitcurves() {
+
+	var applet = document.ggbApplet;
+
+	var req = ocpu.rpc("fitcurves", {
+		xx : pts
+	}, function (output) {
+
+	fitcvs = output;
+
+	//alert("Fit curves");
+
+	displaycurve(output[0], "lowess");
+	applet.setColor("lowess", 255, 0, 0);
+
+	displaycurve(output[1], "spline");
+	applet.setColor("spline", 0, 255, 0);
+
+	displaycurve(output[2], "poly5th");
+	applet.setColor("poly5th", 0, 0, 255);
+
+	});
+
+
+}
+
+
+
+function updatecurves(obj)
+{
+
+
+        //Update 15% of the time as a way to make less calls to R
+        if(Math.random()<.15)
+        {
+        var idx=Number(obj.substr(1,obj.length-1));
+
+        pts[idx-1][0] = document.ggbApplet.getXcoord(obj);
+        pts[idx-1][1] = document.ggbApplet.getYcoord(obj);
+
+        fitcurves();
+        }
+}
+
+
+
+
+
+</script>
+
+
+<p>
+
+<div id="applet_container1"></div>
+
+<script type="text/javascript"> 
+var applet1 = new GGBApplet({material_id: "S3O26sTq", width:500, height:500}, true);
+window.onload = function() {
+        applet1.inject('applet_container1', 'preferHTML5');
+    }
+</script>
+
+
+
+
+<p>
+</p>
+<p><span style="font-size:small">Virgilio G&#243;mez-Rubio, Created with <a href="http://www.geogebra.org/" target="_blank" >GeoGebra</a></span></p>
+</td></tr>
+</table><script type="text/javascript">
+var ggbApplet = document.ggbApplet;
+function ggbOnInit() {}
+</script>
+</body>
+</html>
