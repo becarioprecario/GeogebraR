@@ -1,0 +1,89 @@
+
+<html> 
+<head> 
+<title>GeoGebra and JavaScript</title> 
+<meta name="generator" content="GeoGebra"> 
+<style type="text/css"><!--body { font-family:Helvetica,sans-serif; margin-left:40px }--></style> 
+  <script type="text/javascript" src="http://www.geogebratube.org/scripts/deployggb.js"></script>
+
+<!-- OCPU lib and depends -->
+<script type="text/javascript" src="opencpu/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="opencpu/resize.js"></script>
+<script type="text/javascript" src="opencpu/opencpu-0.4.js"></script>
+
+
+
+</head> 
+<body> 
+<table border="0" width="600"> 
+<tr><td> 
+<h2>GeoGebra Applets and JavaScript: Example</h2> 
+<ul> 
+<li> 
+ <a href="http://wiki.geogebra.org/en/Reference:Applet_Parameters" >GeoGebra Applet Parameters</a> - description of all GeoGebra applet parameters
+</li> 
+<li> 
+ <a href="http://www.geogebra.org/en/wiki/index.php/GeoGebra_JavaScript_Methods" >GeoGebra Applets and JavaScript</a> - description of the JavaScript interface of GeoGebra applets
+</li> 
+</ul> 
+
+<div id="applet_container1"></div>
+
+
+<form>
+<input type="button" value="Sample 5 points with R" onclick="checkR();">
+</form>
+<form>
+<input type="button" value="Create polygon" onclick="createpoly();">
+</form>
+
+
+<script type="text/javascript"> 
+
+function checkR() {
+
+var nsims = 5;
+
+var req = ocpu.rpc("simpts",{
+    n : nsims
+}, function(output){
+
+        //Add points
+        for(var i=0;i<nsims;i++)
+        {
+                var cmd= "A"+(i+1)+"=("+output[i]+")";
+//                alert(cmd);
+                document.ggbApplet.evalCommand(cmd);
+        }
+
+});  
+
+}
+
+function createpoly() {
+   var cmd="poly1=Polygon[A1, A2, A3, A4, A5]";
+   document.ggbApplet.evalCommand(cmd);
+}
+</script>
+
+
+
+
+
+ 
+ 
+<script type="text/javascript"> 
+var applet1 = new GGBApplet({material_id: "122728", width:500, height:500}, true);
+window.onload = function() {
+        applet1.inject('applet_container1', 'preferHTML5');
+    }
+}
+</script> 
+
+
+ 
+<p> 
+</p> 
+<p><span style="font-size:small">Created with <a href="http://www.geogebra.at" target="_blank" >GeoGebra</a> by Markus Hohenwarter</span></p></td></tr> 
+</table></body> 
+</html> 
