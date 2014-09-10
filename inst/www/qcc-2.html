@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Geogebra - GeoGebra Dynamic Worksheet</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="GeoGebra" />
+<style type="text/css"><!--body { font-family:Arial,Helvetica,sans-serif; margin-left:40px }--></style>
+
+<!-- GOOGLE ANALYTICS, Remove if you are modifying this html page -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2002081-3', 'ocpu.io');
+  ga('send', 'pageview');
+
+</script>
+
+<!-- OCPU lib and depends -->
+<script type="text/javascript" src="opencpu/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="opencpu/resize.js"></script>
+<script type="text/javascript" src="opencpu/opencpu-0.4.js"></script>
+
+</head>
+<body>
+<table border="0" width="798">
+<tr><td>
+<h2>Geogebra</h2>
+<p>
+</p>
+
+<form>
+<input type="button" value="Sample points" onclick="sample();">
+<input type="button" value="Display points" onclick="displaypts();">
+<input type="button" value="Recompute Control Chart" onclick="qcclimits();">
+</form>
+
+<script type="text/javascript"> 
+var qccpts;
+
+function sample(){
+
+        var req = ocpu.rpc("qccsample", {},
+         function (output){
+
+	qccpts =output;
+	})
+
+}
+
+function displaypts() {
+	 var applet = document.ggbApplet;
+
+                //Show points in the sample
+                $.each(qccpts, function(i, val){
+
+                var cmd= "A"+(i+1)+"=("+(i+1)+", "+val+")";
+                applet.evalCommand(cmd);
+                applet.setLabelVisible("A"+(i+1), false);
+
+		//Listener function for updates
+		ggbApplet.registerObjectUpdateListener("A"+(i+1), "updateqcc");
+
+                })
+
+}
+
+function qcclimits()
+{
+
+        var req = ocpu.rpc("charlimits", {
+		qccpts : qccpts
+},
+         function (output){
+	 var applet = document.ggbApplet;
+
+                var cmdl= "LCL = Line[ (0, "+output.lowlim+"), (1, "+output.lowlim+")]";
+                applet.evalCommand(cmdl);
+                applet.setLabelVisible("LCL", false);
+
+                var cmdu= "UCL = Line[ (0, "+output.uplim+"), (1, "+output.uplim+")]";
+                applet.evalCommand(cmdu);
+                applet.setLabelVisible("UCL", false);
+
+
+                })
+
+}
+
+function updateqcc(obj)
+{
+
+
+	//Update 20% of the time as a way to make less calls to R
+	if(Math.random()<.20)
+	{
+	var idx=Number(obj.substr(1,obj.length-1));
+
+	qccpts[idx-1] = document.ggbApplet.getYcoord(obj);
+
+//	alert("updated:"+idx)
+	qcclimits();
+	}
+}
+
+</script>
+
+
+<script type="text/javascript"> 
+var applet1 = new GGBApplet({material_id: "122728", width:500, height:500}, true);
+window.onload = function() {
+        applet1.inject('applet_container1', 'preferHTML5');
+    }
+        
+
+
+
+<p>
+</p>
+<p><span style="font-size:small">Virgilio G&#243;mez-Rubio, Created with <a href="http://www.geogebra.org/" target="_blank" >GeoGebra</a></span></p>
+</td></tr>
+</table><script type="text/javascript">
+var ggbApplet = document.ggbApplet;
+function ggbOnInit() {}
+</script>
+</body>
+</html>
