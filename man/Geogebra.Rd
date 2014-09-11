@@ -25,6 +25,10 @@ geometry that is used worldwide.
 }
 \examples{
 
+require(opencpu)
+#Index of pages
+opencpu$browse('/library/GeogebraR/www/index.html')
+
 \dontrun{
 require(opencpu)
 #Simple example
