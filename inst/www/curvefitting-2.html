@@ -117,14 +117,14 @@ function displaycurve (cpts, cname){
 
 	var applet = document.ggbApplet;
 
-                cmd = cname +" = PolyLine [ ";
+                cmd = cname +" = PolyLine( ";
                 cmd = cmd + "("+cpts.x[0]+", " + cpts.y[0]+")";
 
                 for(j=1;j<cpts.x.length;j++)
                 {
                 cmd = cmd + ", ("+cpts.x[j]+", " + cpts.y[j]+") ";
                 }
-                cmd = cmd +" ]";
+                cmd = cmd +" )";
 
 		//alert(cmd);
                 applet.evalCommand(cmd);
