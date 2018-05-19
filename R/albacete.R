@@ -24,5 +24,8 @@ plotmap <- function(map = "albacete"){
     return(xx)
   })
 
+  # Take one in 5 points...
+  polys[[1]] <- polys[[1]][seq(1, nrow(polys[[1]]), by = 5), ]
+
   return(polys)
 }
