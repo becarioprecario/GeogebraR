@@ -3,10 +3,10 @@ Encoding: UTF-8
 Type: Package
 Title: Example using Geogebra and R
 Version: 0.11
-Date: 2017-09-19
+Date: 2018-05-19
 Author: Virgilio Gómez-Rubio,María  José Haro-Delicado, Francisco Parreño-Torres
 Maintainer: Virgilio Gómez-Rubio <virgilio.gomez@uclm.es>
 Description: Examples on the use of OpenCPU to link Geogebra and R.
 License: GPL
 LazyData: yes
-Suggests: opencpu (>= 1.2), qcc, sp, splancs
+Depends: opencpu (>= 1.2), qcc, sp, splancs
